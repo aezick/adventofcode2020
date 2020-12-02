@@ -8,17 +8,17 @@ with open("input.txt", "r") as f:
 		r, c, p = line.split()
 		count = 0
 
-		minimum, maximum = r.split("-")
-		minimum = int(minimum)
-		maximum = int(maximum)
+		p1, p2 = r.split("-")
+		p1 = int(p1)
+		p2 = int(p2)
 		c = c[0]
 
-		# l for letter
-		for l in p:
-			if l == c:
-				count += 1
+		# no concept of index zero, so need to "shift" left one spot
+		# xor condition
+		if p[p1 - 1] == c and p[p2 - 1] != c:
+			valid_count += 1
 
-		if count >= minimum and count <= maximum:
+		if p[p1 - 1] != c and p[p2 - 1] == c:
 			valid_count += 1
 
 	print("valid count:", valid_count)
