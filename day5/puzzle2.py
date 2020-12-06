@@ -1,7 +1,17 @@
+import copy
 import os
 
 with open("input.txt", "r") as f:
 	highest = 0
+	some_seats = set([n for n in range(0,128)])
+	all_seats = [copy.deepcopy(some_seats),
+					copy.deepcopy(some_seats),
+					copy.deepcopy(some_seats),
+					copy.deepcopy(some_seats),
+					copy.deepcopy(some_seats),
+					copy.deepcopy(some_seats),
+					copy.deepcopy(some_seats),
+					copy.deepcopy(some_seats)]
 
 	for line in f:
 		# print(line)
@@ -28,9 +38,11 @@ with open("input.txt", "r") as f:
 			# print(columns)
 
 		score = (seats[0] * 8) + columns[0]
+		all_seats[columns[0]].discard(seats[0])
 		# print(seats[0], columns[0])
 		
 		if highest < score:
 			highest = score
 
-	print(highest)
+	print(all_seats)
+	# 65 * 8 + 7 (all the way on the right)
