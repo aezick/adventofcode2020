@@ -44,24 +44,32 @@ with open("input.txt", "r") as f:
 	# exit()
 
 
-	winners = set()
-	for b in bags:
-		queue = []
-		if "shinygold" in bags[b]:
-			# print(bags[b])
-			winners.add(b)
-			continue
-		else:
-			for k in bags[b].keys():
-				queue.append(k)
-			while queue:
-				if queue[0] == "shinygold":
-					winners.add(b)
-					break
-				else:
-					# print(queue)
-					for k in bags[queue[0]].keys():
-						queue.append(k)
-				queue.pop(0)
-					
-	print(len(winners))
+	contained_bags = {}
+	queue = [("shinygold",1)]
+
+	while queue:
+		for b in bags[queue[0][0]].keys():
+			if b in contained_bags:
+				contained_bags[b] += int(bags[queue[0][0]][b]) * queue[0][1]
+			else:
+				contained_bags[b] = int(bags[queue[0][0]][b]) * queue[0][1]
+
+			if b not in bags:
+				continue
+			else:
+				queue.append((b, int(bags[queue[0][0]][b])  * queue[0][1]))			
+
+		queue.pop(0)
+		# print(bags)
+		# print(queue)
+		# print(contained_bags)
+		# exit()
+
+	count = 0
+	for b in contained_bags:
+		count += contained_bags[b]
+
+	# print(contained_bags)
+	# exit()
+
+	print(count)
