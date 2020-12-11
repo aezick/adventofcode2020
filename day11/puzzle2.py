@@ -26,24 +26,30 @@ with open("input.txt", "r") as f:
 
 				occupied_adj = 0
 				for pos in [(-1,-1), (-1,0), (-1,1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]:
-					try:
-						# print(i, j, pos[0], pos[1])
-						# print(seats[i + pos[0]])
-						width = i + pos[0]
-						length = j + pos[1]
-						if width < 0 or width > len(seats):
-							continue
-						if length < 0 or length > len(seats[0]):
-							continue
+					width = i
+					length = j
+					while True:
+						width += pos[0]
+						length += pos[1]
 
-						if seats[i + pos[0]][j + pos[1]] == "#":
+						if width < 0 or width >= len(seats):
+							break
+						if length < 0 or length >= len(seats[0]):
+							break
+
+						try:
+							seen_seat = seats[width][length]
+						except:
+							print(width, length, len(seats), len(seats[0]))
+							exit(0)
+						if seen_seat == "#":
 							occupied_adj += 1
-					except Exception as e:
-						# print(e)
-						pass
+							break
+						elif seen_seat == "L":
+							break
 
 				if new_seat == "#":
-					if occupied_adj >= 4:
+					if occupied_adj >= 5:
 						new_seat = "L"
 					else:
 						new_seat = "#"
