@@ -1,3 +1,4 @@
+import copy
 import os
 
 # Action N means to move north by the given value.
@@ -9,25 +10,25 @@ import os
 # Action F means to move forward by the given value in the direction the ship is currently facing.
 
 with open("input.txt", "r") as f:
-	facing = "E"
 	loc = [0, 0]
-	turn_order = ["N", "W", "S", "E"]	# left
+	waypoint = [1, 10]
 
 	for line in f:
+		# print(loc, waypoint)
 		line = line.strip()
 		num = int(line[1:])
 
 		if "N" in line:
-			loc[0] += num
+			waypoint[0] += num
 			continue
 		elif "S" in line:
-			loc[0] -= num
+			waypoint[0] -= num
 			continue
 		elif "E" in line:
-			loc[1] += num
+			waypoint[1] += num
 			continue
 		elif "W" in line:
-			loc[1] -= num
+			waypoint[1] -= num
 			continue
 
 		normal_turn = False
@@ -45,30 +46,42 @@ with open("input.txt", "r") as f:
 
 		if "L" in line:
 			if normal_turn:
-				facing = turn_order[turn_order.index(facing) - 3]
+				new_waypoint = copy.deepcopy(waypoint)
+				new_waypoint[0] = waypoint[1]
+				new_waypoint[1] = -waypoint[0]
+				waypoint = new_waypoint
 			if u_turn:
-				facing = turn_order[turn_order.index(facing) - 2]
+				new_waypoint = copy.deepcopy(waypoint)
+				new_waypoint[0] = -waypoint[0]
+				new_waypoint[1] = -waypoint[1]
+				waypoint = new_waypoint
 			if opposite_turn:
-				facing = turn_order[turn_order.index(facing) - 1]
+				new_waypoint = copy.deepcopy(waypoint)
+				new_waypoint[0] = -waypoint[1]
+				new_waypoint[1] = waypoint[0]
+				waypoint = new_waypoint
 			continue
 		if "R" in line:
 			if normal_turn:
-				facing = turn_order[turn_order.index(facing) - 1]
+				new_waypoint = copy.deepcopy(waypoint)
+				new_waypoint[0] = -waypoint[1]
+				new_waypoint[1] = waypoint[0]
+				waypoint = new_waypoint
 			if u_turn:
-				facing = turn_order[turn_order.index(facing) - 2]
+				new_waypoint = copy.deepcopy(waypoint)
+				new_waypoint[0] = -waypoint[0]
+				new_waypoint[1] = -waypoint[1]
+				waypoint = new_waypoint
 			if opposite_turn:
-				facing = turn_order[turn_order.index(facing) - 3]
+				new_waypoint = copy.deepcopy(waypoint)
+				new_waypoint[0] = waypoint[1]
+				new_waypoint[1] = -waypoint[0]
+				waypoint = new_waypoint
 			continue
 
 		if "F" in line:
-			if facing == "N":
-				loc[0] += num
-			elif facing == "E":
-				loc[1] += num
-			elif facing == "S":
-				loc[0] -= num
-			elif facing == "W":
-				loc[1] -= num
+			loc[0] += waypoint[0] * num
+			loc[1] += waypoint[1] * num
 			continue
 
 		print("error")
