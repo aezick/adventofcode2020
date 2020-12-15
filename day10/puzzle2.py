@@ -1,61 +1,40 @@
 import copy
 import os
 
-def recurse_adapters(adapters, previous_adapter, count):
-	# print(previous_adapter, count)
-
-	if len(adapters) == 0:
-		return count + 1
-
-	if len(adapters) == 1:
-		return count + 1
-
-	if adapters[0] - previous_adapter == 3:
-		return recurse_adapters(copy.deepcopy(adapters[1:]), adapters[0], count)
-
-	elif adapters[0] - previous_adapter == 2:
-		if adapters[1] - previous_adapter == 3:
-			return recurse_adapters(copy.deepcopy(adapters[1:]), adapters[0], count) \
-				+ recurse_adapters(copy.deepcopy(adapters[2:]), adapters[1], count)
-		else:
-			return recurse_adapters(copy.deepcopy(adapters[1:]), adapters[0], count)
-
-	elif adapters[0] - previous_adapter == 1:
-		# print("curr and prev:", adapters[0], previous_adapter)
-		if adapters[1] - previous_adapter == 3:
-			return recurse_adapters(copy.deepcopy(adapters[1:]), adapters[0], count) \
-				+ recurse_adapters(copy.deepcopy(adapters[2:]), adapters[1], count)
-
-		elif adapters[1] - previous_adapter == 2:
-			# print("another level:", adapters[0], previous_adapter)
-			if len(adapters) > 2 and (adapters[2] - previous_adapter == 3):
-				# print("final boss:", adapters[0], previous_adapter)
-				return recurse_adapters(copy.deepcopy(adapters[1:]), adapters[0], count) \
-				+ recurse_adapters(copy.deepcopy(adapters[2:]), adapters[1], count) \
-				+ recurse_adapters(copy.deepcopy(adapters[3:]), adapters[2], count)
-			else:
-				return recurse_adapters(copy.deepcopy(adapters[1:]), adapters[0], count) \
-				+ recurse_adapters(copy.deepcopy(adapters[2:]), adapters[1], count)
-			# else:
-			# 	return recurse_adapters(copy.deepcopy(adapters[1:]), adapters[0], count)
-
-		else:
-			return recurse_adapters(copy.deepcopy(adapters[1:]), adapters[0], count)
-	else:
-		print("impossible?")
-
-
+# weird algorithm, not sure if works? avoids recursion as that was too slow
 with open("input.txt", "r") as f:
-	total = 0
 	adapters = []
+	consecutive_ones = {2: 0, 3: 0, 4: 0}
 
 	for line in f:
 		line = line.strip()
 		adapters.append(int(line))
 
 	adapters.sort()
-	last_adapter = 0
+	# print(adapters)
 
-	total = recurse_adapters(adapters, 0, 0)
+	counter = 0
+	prev_adapter = 0
+	for a in adapters:
+		# print(a - prev_adapter)
+		if a - prev_adapter == 3:
+			if counter == 3:
+				consecutive_ones[3] += 1
+			elif counter == 2:
+				consecutive_ones[2] += 1
+			elif counter == 4:
+				consecutive_ones[4] += 1
 
-	print("Total:", total)
+			counter = 0
+
+		elif a - prev_adapter == 1:
+			counter += 1			
+
+		if counter == 4:
+			consecutive_ones[4] += 1
+			counter = 0
+
+		prev_adapter = a
+
+	# print(consecutive_ones)
+	print("Total:", (7 ** consecutive_ones[4]) * (4 ** consecutive_ones[3]) * (2 ** consecutive_ones[2]))
