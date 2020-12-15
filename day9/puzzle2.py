@@ -20,14 +20,14 @@ with open("input.txt", "r") as f:
 		num = int(line)
 		numbers.append(num)
 
-	exit("never finished")
+	n = len(numbers)
 
-	# n = len(numbers)
+	for i in range(n - 1):
+		curr = numbers[i]
 
-	# for i in range(n-1):
-	# 	curr = numbers[i]
-	# 	for j in range(i+1, n):
-	# 		if curr == magic_number:
-	# 			print(min(numbers[i: j]) + max(numbers[i: j]))
+		for j in range(i + 1, n):
+			if curr == magic_number:
+				print(min(numbers[i:j]) + max(numbers[i:j]))
+				exit()
 
-	# 		curr += numbers[j]
+			curr += numbers[j]
