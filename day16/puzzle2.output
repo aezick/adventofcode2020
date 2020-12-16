@@ -1,0 +1,72 @@
+# Column 2 is Field 12
+# Column 1 is Field 10
+# Column 20 is Field 15
+# Column 4 is Field 7
+# Column 16 is Field 16
+# Column 7 is Field 8
+# Column 13 is Field 3
+# Column 17 is Field 1
+# Column 15 is Field 5
+# Column 11 is Field 2
+# Column 14 is Field 4
+# Column 6 is Field 9
+
+departure location: 25-568 or 594-957
+departure station: 33-447 or 466-952
+departure platform: 31-700 or 725-956
+departure track: 43-124 or 141-952
+departure date: 26-290 or 306-962
+departure time: 34-754 or 763-960
+
+Answer: 1-indexed columns 13 * 17 * 15 * 11 * 14 * 9
+
+113,197,59,167,151,107,79,73,109,157,199,193,83,53,89,71,149,61,67,163
+
+answer (hopefully) = 83 * 149 * 89 * 199 * 53 * 107 =
+1242130114727
+(ugh too low)
+(how about...) 109 * 199 * 83 * 53 * 89 * 149 =
+1265347500049
+
+(^ turns out I misread 9 as 6, which led to an initial wrong answer)
+
+
+
+##################
+2 - [False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False == field 12
+
+1 - [[False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False == field 10
+
+20 - [False, False, False, False, False, False, False, False, False, True, False, True, False, False, True, False, False, False, False, False]] == field 15
+
+4 - [False, False, False, False, False, False, True, False, False, True, False, True, False, False, True, False, False, False, False, False == field 7
+
+16 - [False, False, False, False, False, False, True, False, False, True, False, True, False, False, True, True, False, False, False, False == field 16
+
+7 - [False, False, False, False, False, False, True, True, False, True, False, True, False, False, True, True, False, False, False, False == field 8
+
+13 - [False, False, True, False, False, False, True, True, False, True, False, True, False, False, True, True, False, False, False, False == field 3
+
+17 - [True, False, True, False, False, False, True, True, False, True, False, True, False, False, True, True, False, False, False, False == field 1
+
+15 - [True, False, True, False, True, False, True, True, False, True, False, True, False, False, True, True, False, False, False, False == field 5
+
+11 - [True, True, True, False, True, False, True, True, False, True, False, True, False, False, True, True, False, False, False, False == field 2
+
+14 - [True, True, True, True, True, False, True, True, False, True, False, True, False, False, True, True, False, False, False, False == field 4
+
+9 - [True, True, True, True, True, True, True, True, False, True, False, True, False, False, True, True, False, False, False, False == field 6
+
+##################
+
+
+
+
+3 - [True, True, True, True, True, True, True, True, True, True, False, True, False, True, True, True, True, True, False, True
+5 - [True, True, True, True, True, True, True, True, True, True, False, True, True, True, True, True, True, True, False, True
+6 - [True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True
+8 - [True, True, True, True, True, True, True, True, False, True, False, True, False, False, True, True, True, False, False, True
+10 - [True, True, True, True, True, True, True, True, False, True, False, True, False, True, True, True, True, False, False, True
+12 - [True, True, True, True, True, True, True, True, True, True, False, True, False, True, True, True, True, False, False, True
+18 - [True, True, True, True, True, True, True, True, False, True, False, True, False, False, True, True, False, False, False, True
+19 - [True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, False, True
